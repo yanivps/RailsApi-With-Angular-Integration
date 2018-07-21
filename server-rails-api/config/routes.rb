@@ -1,3 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # User credentials login route
+  post 'auth/login', to: 'authentication#authenticate'
+
+  # OAuth login routes
+  post "auth/:provider", to: "authentication#generic_oauth"
+
+  # User credentials signup
+  resources :users, only: [:create], defaults: {format: :json}
+  post '/users/verify', to: 'users#verify'
 end
